@@ -13,8 +13,8 @@ public class DataBase {
 	
 	private final String URL = "jdbc:mysql://localhost:3306/";
 	private final String TABLE_NAME = "";
-	private final String USER = "root";
-	private final String PASSWORD = "uursty199";
+	private final String USER = "";
+	private final String PASSWORD = "";
 	
 	private DataBase() {
 		// 2개 이상의 오브젝트가 동시에 DB 액세스 시 문제 발생.
