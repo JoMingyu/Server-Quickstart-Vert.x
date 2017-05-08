@@ -1,6 +1,6 @@
 package com.planb.main;
 
-import com.planb.support.Log;
+import com.planb.support.utilities.Log;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
