@@ -29,7 +29,7 @@ public class SessionUtil {
 		}
 	}
 	
-	public static String getSessionOrCookieValue(RoutingContext ctx, String key) {
+	public static String getSessionId(RoutingContext ctx, String key) {
 		String value = null;
 		
 		if(ctx.session().get(key) != null) {
