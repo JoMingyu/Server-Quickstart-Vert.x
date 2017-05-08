@@ -10,7 +10,7 @@ import io.vertx.core.Handler;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 
-public class Register {
+public class Routing {
 	@SuppressWarnings("unchecked")
 	public static void route(Router router, String... packages) {
 		for(String p : packages) {
