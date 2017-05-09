@@ -22,8 +22,8 @@ public class HttpClient {
 	private OutputStream out = null;
 	private OutputStreamWriter wr = null;
 	
-	public HttpClient() {
-		config = new HttpClientConfig();
+	public HttpClient(HttpClientConfig config) {
+		this.config = config;
 	}
 	
 	public int post(String uri, Map<String, Object> headers, Map<String, Object> params) {

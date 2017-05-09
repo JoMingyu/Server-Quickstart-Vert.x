@@ -1,14 +1,9 @@
 package com.planb.additional;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONObject;
-
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 
 public class Firebase {
 	private static final String SERVER_KEY = "";
@@ -21,19 +16,20 @@ public class Firebase {
 		config.setTargetAddress(API_URL);
 		config.setReadTimeout(10000);
 		config.setConnectTimeout(10000);
-		client = new HttpClient();
+		client = new HttpClient(config);
 		
-		FirebaseOptions options;
-		try {
-			options = new FirebaseOptions.Builder()
-				  .setServiceAccount(new FileInputStream("path/to/serviceAccountCredentials.json"))
-				  .setDatabaseUrl("https://databaseName.firebaseio.com/")
-				  .build();
-			FirebaseApp.initializeApp(options);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// FireBase Read-Time DataBase를 사용하는 경우
+//		FirebaseOptions options;
+//		try {
+//			options = new FirebaseOptions.Builder()
+//				  .setServiceAccount(new FileInputStream("path/to/serviceAccountCredentials.json"))
+//				  .setDatabaseUrl("https://databaseName.firebaseio.com/")
+//				  .build();
+//			FirebaseApp.initializeApp(options);
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 	public static void send(String message, String target) {
