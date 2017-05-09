@@ -1,14 +1,14 @@
 package com.planb.additional;
 
-public class HttpClientConfig extends Config {
-	private String targetAddress = null;
-	private int targetPort = 80;
+public class HttpClientDefaultConfig extends Config {
+	private static String targetAddress = null;
+	private static int targetPort = 80;
 
-	private int readTimeout = 3000;
-	private int connectTimeout = 3000;
+	private static int readTimeout = 3000;
+	private static int connectTimeout = 3000;
 
 	public void setTargetAddress(String address) {
-		this.targetAddress = address;
+		HttpClientDefaultConfig.targetAddress = address;
 	}
 
 	public String getTargetAddress() {
@@ -16,7 +16,7 @@ public class HttpClientConfig extends Config {
 	}
 
 	public void setTargetPort(int port) {
-		this.targetPort = port;
+		HttpClientDefaultConfig.targetPort = port;
 	}
 
 	public int getTargetPort() {
@@ -24,7 +24,7 @@ public class HttpClientConfig extends Config {
 	}
 
 	public void setReadTimeout(int readTimeout) {
-		this.readTimeout = readTimeout;
+		HttpClientDefaultConfig.readTimeout = readTimeout;
 	}
 
 	public int getReadTimeout() {
@@ -32,7 +32,7 @@ public class HttpClientConfig extends Config {
 	}
 
 	public void setConnectTimeout(int connectTimeout) {
-		this.connectTimeout = connectTimeout;
+		HttpClientDefaultConfig.connectTimeout = connectTimeout;
 	}
 
 	public int getConnectTimeout() {

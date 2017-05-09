@@ -63,7 +63,7 @@ public class HttpClient {
 	
 	public int post(String uri, Map<String, Object> headers, JSONObject requestObject) {
 		/*
-		 * post 요청
+		 * post 요청 : 본문 데이터가 JSON
 		 * status code 리턴
 		 */
 		String requestAddress = createRequestAddress(uri);
