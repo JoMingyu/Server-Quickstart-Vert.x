@@ -8,6 +8,7 @@
 	> support.crypto
 	> support.routing
 	> support.utilities
+	> additional
 ### com.planb.main
 #### Main.java
 main 메소드 위치, Vert.x 객체와 Verticle 배치 구문
@@ -58,3 +59,14 @@ MySQL에 연결하여 쿼리를 수행
 	Log.I("Something");
 #### SessionUtil.java
 세션과 쿠키를 다루기 위한 클래스
+
+### com.planb.additional
+서버 구성 시 추가적으로 사용할만한 클래스들이 모인 패키지
+#### Firebase.java
+FCM 푸쉬 알림 사용을 위한 클래스
+추후 Real-Time DataBase도 사용할 수 있도록 할 예정
+#### Mail.java
+SMTP를 이용해 메일 전송을 하기 위한 클래스
+#### Config.java & HttpClientConfig.java & HttpClientDefaultConfig.java & HttpClient.java
+##### Simple-Networking-Library
+<https://github.com/JoMingyu/Simple-Networking-Library>
