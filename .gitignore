@@ -63,7 +63,7 @@ $RECYCLE.BIN/
 *.lnk
 /bin/
 
-
 # Others
-*.classpath
-*.project
+.classpath
+.gitignore
+.project
