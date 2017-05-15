@@ -4,12 +4,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 public class NetworkingHelper {
-	static String createRequestAddress(Config config, String uri) {
-		// POST ��û �Ǵ� �Ķ���Ͱ� ���� GET ��û������ request address
-		
+	private static String validateUri(Config config, String uri) {
 		if(config.getTargetAddress().endsWith("/") && uri.startsWith("/")) {
 			// Escape double slash
 			uri = uri.substring(1, uri.length());
@@ -21,14 +20,20 @@ public class NetworkingHelper {
 		
 		if(uri.endsWith("/")) {
 			// Escape end with slash
-			uri.substring(0, uri.length() - 1);
+			uri = uri.substring(0, uri.length() - 1);
 		}
 		
 		if(config.getTargetPort() == 80) {
-			return config.getTargetAddress();
+			return config.getTargetAddress() + uri;
 		} else {
 			return config.getTargetAddress() + ":" + config.getTargetPort() + uri;
 		}
+	}
+	
+	static String createRequestAddress(Config config, String uri) {
+		// POST ��û �Ǵ� �Ķ���Ͱ� ���� GET ��û������ request address
+		
+		return validateUri(config, uri);
 	}
 	
 	static String createRequestAddress(Config config, String uri, Map<String, Object> params) {
@@ -36,23 +41,16 @@ public class NetworkingHelper {
 		 * �Ķ���Ͱ� �ִ� GET ��û������ request address
 		 * URI?key=value&key=value ����
 		 */
-		if(config.getTargetAddress().endsWith("/") && uri.startsWith("/")) {
-			uri = uri.substring(1, uri.length());
-		} else if(!config.getTargetAddress().endsWith("/") && !uri.startsWith("/")) {
-			uri = "/" + uri;
-		}
-		// ������ URI ����
 		
 		StringBuilder requestAddress = new StringBuilder();
-		requestAddress.append(config.getTargetAddress());
-		requestAddress.append(":");
-		requestAddress.append(config.getTargetPort());
-		requestAddress.append(uri);
-		requestAddress.append("?");
-		
+		requestAddress.append(validateUri(config, uri)).append("?");
 		for(String key : params.keySet()) {
 			String value = (String) params.get(key);
-			requestAddress.append(key).append("=").append(value).append("&");
+			try {
+				requestAddress.append(key).append("=").append(URLEncoder.encode(value, "UTF-8")).append("&");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		String requestAddressStr = requestAddress.toString();
@@ -66,7 +64,11 @@ public class NetworkingHelper {
 		
 		for(String key : params.keySet()) {
 			String value = String.valueOf(params.get(key));
-			requestData.append(key).append("=").append(value).append("&");
+			try {
+				requestData.append(key).append("=").append(URLEncoder.encode(value, "UTF-8")).append("&");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		String requestAddressStr = requestData.toString();
