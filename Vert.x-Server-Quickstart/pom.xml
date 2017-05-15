@@ -72,7 +72,7 @@
           			<manifest>
             			<addClasspath>true</addClasspath>
             			<classpathPrefix>lib/</classpathPrefix>
-            			<mainClass>com.planb.core.Main</mainClass>
+            			<mainClass>com.planb.main.Main</mainClass>
           			</manifest>
         		</archive>
       		</configuration>
