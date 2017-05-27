@@ -4,46 +4,37 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 import java.util.Map;
 
 public class NetworkingHelper {
-	private static String validateUri(Config config, String uri) {
-		if(config.getTargetAddress().endsWith("/") && uri.startsWith("/")) {
-			// Escape double slash
-			uri = uri.substring(1, uri.length());
-		} else if(!config.getTargetAddress().endsWith("/") && !uri.startsWith("/")) {
-			// Escape no slash
-			uri = "/" + uri;
-		}
-		// ������ URI ����
-		
+	private static String validateUri(String targetAddress, String uri) {
 		if(uri.endsWith("/")) {
-			// Escape end with slash
 			uri = uri.substring(0, uri.length() - 1);
 		}
 		
-		if(config.getTargetPort() == 80) {
-			return config.getTargetAddress() + uri;
-		} else {
-			return config.getTargetAddress() + ":" + config.getTargetPort() + uri;
+		if(!uri.startsWith("/")) {
+			uri = "/" + uri;
 		}
-	}
-	
-	static String createRequestAddress(Config config, String uri) {
-		// POST ��û �Ǵ� �Ķ���Ͱ� ���� GET ��û������ request address
 		
-		return validateUri(config, uri);
+		return targetAddress + uri;
 	}
 	
-	static String createRequestAddress(Config config, String uri, Map<String, Object> params) {
+	static String createRequestAddress(String targetAddress, String uri) {
+		// POST request or GET request with no parameter
+		
+		return validateUri(targetAddress, uri);
+	}
+	
+	static String createRequestAddress(String targetAddress, String uri, Map<String, Object> params) {
 		/*
-		 * �Ķ���Ͱ� �ִ� GET ��û������ request address
-		 * URI?key=value&key=value ����
+		 * GET request with parameter
+		 * URI?key=value&key=value
 		 */
 		
 		StringBuilder requestAddress = new StringBuilder();
-		requestAddress.append(validateUri(config, uri)).append("?");
+		requestAddress.append(validateUri(targetAddress, uri)).append("?");
 		for(String key : params.keySet()) {
 			String value = (String) params.get(key);
 			try {
@@ -59,7 +50,8 @@ public class NetworkingHelper {
 	}
 	
 	static byte[] createParamBytes(Map<String, Object> params) {
-		// POST �޼ҵ忡�� ����ϴ� byte Ÿ���� body ������
+		// Body data to byte[]
+		
 		StringBuilder requestData = new StringBuilder();
 		
 		for(String key : params.keySet()) {
@@ -76,7 +68,16 @@ public class NetworkingHelper {
 		return requestAddressStr.getBytes();
 	}
 	
-	static String getResponse(InputStream in) {
+	static Response getResponse(HttpURLConnection connection) {
+		// Get response from response
+		
+		InputStream in = null;
+		try {
+			in = connection.getInputStream();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
 		if(in == null) {
 			return null;
 		}
@@ -92,11 +93,19 @@ public class NetworkingHelper {
 			e.printStackTrace();
 		}
 		
+		Response response = new Response();;
+		
 		try {
-			return new String(out.toByteArray(), "UTF-8");
-		} catch (UnsupportedEncodingException e) {
+			String responseBody = new String(out.toByteArray(), "UTF-8");
+			response.setResponseBody(responseBody);
+			response.setResponseHeader(connection.getHeaderFields());
+			response.setResponseCode(connection.getResponseCode());
+		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
 		}
+		
+		connection.disconnect();
+		return response;
 	}
 }

@@ -12,10 +12,6 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	<junit.version>3.8.1</junit.version>
-	<vertx.version>3.4.1</vertx.version>
-	<mysql.version>6.0.5</mysql.version>
-	<jsonsimple.version>1.1.1</jsonsimple.version>
   </properties>
   
   <build>
@@ -72,7 +68,7 @@
           			<manifest>
             			<addClasspath>true</addClasspath>
             			<classpathPrefix>lib/</classpathPrefix>
-            			<mainClass>com.planb.core.Main</mainClass>
+            			<mainClass>com.planb.main.Main</mainClass>
           			</manifest>
         		</archive>
       		</configuration>
@@ -92,14 +88,14 @@
 	<dependency>
     	<groupId>io.vertx</groupId>
     	<artifactId>vertx-core</artifactId>
-    	<version>${vertx.version}</version>
+    	<version>3.4.1</version>
 	</dependency>
 		
 	<!-- https://mvnrepository.com/artifact/io.vertx/vertx-web -->
 	<dependency>
     	<groupId>io.vertx</groupId>
     	<artifactId>vertx-web</artifactId>
-    	<version>${vertx.version}</version>
+    	<version>3.4.1</version>
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/org.reflections/reflections -->

@@ -14,9 +14,7 @@ public class Firebase {
 	
 	public static void send(String title, String body, String registrationId) {
 		// Send by registration id
-		Config config = new HttpClientConfig();
-		config.setTargetAddress("https://fcm.googleapis.com/fcm/send");
-		HttpClient client = new HttpClient(config);
+		HttpClient client = new HttpClient("https://fcm.googleapis.com/fcm/send");
 
 		JSONObject noti = new JSONObject();
 		noti.put("title", title);
@@ -35,9 +33,7 @@ public class Firebase {
 
 	public static void sendByTopic(String title, String body, String topicName) {
 		// Send by registration id
-		Config config = new HttpClientConfig();
-		config.setTargetAddress("https://fcm.googleapis.com/fcm/send");
-		HttpClient client = new HttpClient(config);
+		HttpClient client = new HttpClient("https://fcm.googleapis.com/fcm/send");
 
 		JSONObject noti = new JSONObject();
 		noti.put("title", title);

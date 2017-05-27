@@ -1,7 +1,6 @@
 package com.planb.additional;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -11,37 +10,70 @@ import java.util.Map;
 import org.json.JSONObject;
 
 public class HttpClient {
-	private Config config = null;
+	private String targetAddress;
+	private URL url;
 	
-	private URL url = null;
+	private int readTimeout = 3000;
+	private int connectTimeout = 3000;
+	
 	private HttpURLConnection connection = null;
-	private InputStream in = null;
 	private OutputStream out = null;
 	private OutputStreamWriter wr = null;
 	
-	public HttpClient(Config config) {
-		this.config = config;
+	public HttpClient(String targetAddress, int port, int readTimeout, int connectTimeout) {
+		// Constructor with address, port, timeouts
+		
+		if(targetAddress.endsWith("/")) {
+			targetAddress = targetAddress.substring(0, targetAddress.length() - 1);
+		}
+		
+		this.targetAddress = targetAddress.substring(0, targetAddress.length() - 1);
+		this.readTimeout = readTimeout;
+		this.connectTimeout = connectTimeout;
 	}
 	
-	public HttpClient() {
-		this.config = new HttpClientDefaultConfig();
+	public HttpClient(String targetAddress, int port) {
+		// Constructor with address, port
+		
+		if(targetAddress.endsWith("/")) {
+			targetAddress = targetAddress.substring(0, targetAddress.length() - 1);
+		}
+		
+		this.targetAddress = port == 80 ? targetAddress : targetAddress + ":" + port;
+	}
+	
+	public HttpClient(String targetAddress) {
+		// Constructor with address
+		
+		if(targetAddress.endsWith("/")) {
+			targetAddress = targetAddress.substring(0, targetAddress.length() - 1);
+		}
+		
+		this.targetAddress = targetAddress;
+	}
+	
+	public HttpClient(Config config) {
+		// Constructor with config
+		
+		this.targetAddress = config.getTargetAddress();
+		this.readTimeout = config.getReadTimeout();
+		this.connectTimeout = config.getConnectTimeout();
 	}
 	
 	public Response post(String uri, Map<String, Object> headers, Map<String, Object> params) {
-		/*
-		 * post ��û
-		 * status code ����
-		 */
-		String requestAddress = NetworkingHelper.createRequestAddress(config, uri);
-		// URI�� ���� ��û �ּ� ������
+		// POST request with parameter map
+		
+		String requestAddress = NetworkingHelper.createRequestAddress(this.targetAddress, uri);
+		// Request address with uri
+		
 		try {
 			url = new URL(requestAddress);
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setDoOutput(true);
-			// POST ��û �� DoOutput Ȱ��ȭ
-			connection.setReadTimeout(config.getReadTimeout());
-			connection.setConnectTimeout(config.getConnectTimeout());
+			// Enable do output
+			connection.setReadTimeout(this.readTimeout);
+			connection.setConnectTimeout(this.connectTimeout);
 			
 			if(headers != null && headers.size() > 0) {
 				for(String key : headers.keySet()) {
@@ -52,20 +84,11 @@ public class HttpClient {
 			if(params != null && params.size() > 0) {
 				out = connection.getOutputStream();
 				out.write(NetworkingHelper.createParamBytes(params));
-				// Body �����Ͱ� ������ ����Ʈ ������ �����͸� ����
+				// Send byte[] data if body data is exists
 				out.flush();
 			}
 			
-			Response response = new Response();
-			in = connection.getInputStream();
-			String responseBody = NetworkingHelper.getResponse(in);
-			// connection���� ���� InputStream���� ���� ������
-			response.setResponseBody(responseBody);
-			response.setResponseCode(connection.getResponseCode());
-			response.setResponseHeader(connection.getHeaderFields());
-			
-			connection.disconnect();
-			return response;
+			return NetworkingHelper.getResponse(connection);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
@@ -73,20 +96,19 @@ public class HttpClient {
 	}
 	
 	public Response post(String uri, Map<String, Object> headers, JSONObject requestObject) {
-		/*
-		 * post ��û : ���� �����Ͱ� JSON
-		 * status code ����
-		 */
-		String requestAddress = NetworkingHelper.createRequestAddress(config, uri);
-		// URI�� ���� ��û �ּ� ������
+		// POST request with JSON data
+		
+		String requestAddress = NetworkingHelper.createRequestAddress(this.targetAddress, uri);
+		// Request address with uri
+		
 		try {
 			url = new URL(requestAddress);
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setDoOutput(true);
-			// POST ��û �� DoOutput Ȱ��ȭ
-			connection.setReadTimeout(config.getReadTimeout());
-			connection.setConnectTimeout(config.getConnectTimeout());
+			// Enable do output
+			connection.setReadTimeout(this.readTimeout);
+			connection.setConnectTimeout(this.connectTimeout);
 			
 			if(headers != null && headers.size() > 0) {
 				for(String key : headers.keySet()) {
@@ -98,16 +120,7 @@ public class HttpClient {
 			wr.write(requestObject.toString());
 			wr.flush();
 			
-			Response response = new Response();
-			in = connection.getInputStream();
-			String responseBody = NetworkingHelper.getResponse(in);
-			// connection���� ���� InputStream���� ���� ������
-			response.setResponseBody(responseBody);
-			response.setResponseCode(connection.getResponseCode());
-			response.setResponseHeader(connection.getHeaderFields());
-			
-			connection.disconnect();
-			return response;
+			return NetworkingHelper.getResponse(connection);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
@@ -115,23 +128,22 @@ public class HttpClient {
 	}
 	
 	public Response get(String uri, Map<String, Object> headers, Map<String, Object> params) {
-		/*
-		 * get ��û
-		 * status code�� ���� ������ ����
-		 */
+		// GET request
+		
 		String requestAddress = null;
 		if(params != null && params.size() > 0) {
-			requestAddress = NetworkingHelper.createRequestAddress(config, uri, params);
-			// URI�� �Ķ���͸� ���� ��û �ּ� ������
+			requestAddress = NetworkingHelper.createRequestAddress(this.targetAddress, uri, params);
+			// Request address with uri and parameter
 		} else {
-			requestAddress = NetworkingHelper.createRequestAddress(config, uri);
+			requestAddress = NetworkingHelper.createRequestAddress(this.targetAddress, uri);
+			// Request address with uri
 		}
 		try {
 			url = new URL(requestAddress);
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
-			connection.setReadTimeout(config.getReadTimeout());
-			connection.setConnectTimeout(config.getConnectTimeout());
+			connection.setReadTimeout(this.readTimeout);
+			connection.setConnectTimeout(this.connectTimeout);
 			
 			if(headers != null && headers.size() > 0) {
 				for(String key : headers.keySet()) {
@@ -139,40 +151,30 @@ public class HttpClient {
 				}
 			}
 			
-			Response response = new Response();
-			in = connection.getInputStream();
-			String responseBody = NetworkingHelper.getResponse(in);
-			// connection���� ���� InputStream���� ���� ������
-			response.setResponseBody(responseBody);
-			response.setResponseCode(connection.getResponseCode());
-			response.setResponseHeader(connection.getHeaderFields());
-			
-			connection.disconnect();
-			return response;
+			return NetworkingHelper.getResponse(connection);
 		} catch(IOException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 	
-	public int delete(String uri, Map<String, Object> headers, Map<String, Object> params) {
-		/*
-		 * delete ��û
-		 * status code ����
-		 */
+	public Response delete(String uri, Map<String, Object> headers, Map<String, Object> params) {
+		// GET request
+		
 		String requestAddress = null;
 		if(params != null && params.size() > 0) {
-			requestAddress = NetworkingHelper.createRequestAddress(config, uri, params);
-			// URI�� �Ķ���͸� ���� ��û �ּ� ������
+			requestAddress = NetworkingHelper.createRequestAddress(this.targetAddress, uri, params);
+			// Request address with uri and parameter
 		} else {
-			requestAddress = NetworkingHelper.createRequestAddress(config, uri);
+			requestAddress = NetworkingHelper.createRequestAddress(this.targetAddress, uri);
+			// Request address with uri
 		}
 		try {
 			url = new URL(requestAddress);
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("DELETE");
-			connection.setReadTimeout(config.getReadTimeout());
-			connection.setConnectTimeout(config.getConnectTimeout());
+			connection.setReadTimeout(this.readTimeout);
+			connection.setConnectTimeout(this.connectTimeout);
 			
 			if(headers != null && headers.size() > 0) {
 				for(String key : headers.keySet()) {
@@ -180,11 +182,10 @@ public class HttpClient {
 				}
 			}
 			
-			connection.disconnect();
-			return connection.getResponseCode();
+			return NetworkingHelper.getResponse(connection);
 		} catch(IOException e) {
 			e.printStackTrace();
-			return 0;
+			return null;
 		}
 	}
 }
