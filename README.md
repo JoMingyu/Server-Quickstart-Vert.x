@@ -6,6 +6,7 @@ Vert.x Web 서버를 만들 때 쓸 퀵스타트
 별다른 조작 없이 바로 RESTful API 서버의 기능 구현에 집중하기 위해서 Route 어노테이션을 통해 구현하고자 하는 기능의 HTTP 메소드와 URI를 메타데이터로서 표현할 수 있습니다. 서버가 실행되면 Route 어노테이션이 선언된 클래스들을 자동으로 라우팅합니다.
 ### 구현한 REST API의 문서화
 Route 어노테이션이 선언된 클래스에 Function과 RESTful 어노테이션을 선언해두면 서버가 실행될 때마다 서버의 API 문서를 엑셀 파일로 자동 생성합니다.
+![Doc](REST.png)
 ### 구현되어 있는 데이터베이스와 암호화, Firebase 등의 유틸리티 클래스
 utilities 패키지에 구현되어 있는 DataBase, Log, SessionUtil 클래스를 통해 쿼리문 조작, 로깅, 세션과 쿠키를 쉽게 다룰 수 있습니다.
 또한 additional 패키지의 HttpClient 클래스를 통해 간단한 HTTP 요청을 할 수 있으며, FireBase 클래스로 파이어베이스 기반 어플리케이션 서버를 구현할 수 있습니다. Mail 클래스로 SMTP 메일 전송을 할 수도 있습니다.
