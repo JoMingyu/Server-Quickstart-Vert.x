@@ -25,7 +25,7 @@ main 메소드가 위치하며, Vert.x 객체와 Verticle 배치 구문이 존�
 #### MainVerticle.java
 main 메소드에서 분기, Router 객체에 Body, Cookie, Session, Static 핸들러, com.planb.restful 패키지 하위의 RESTful 핸들러 클래스들을 배치한 이후 80번 포트로 서버를 시작시킵니다.
 ### > com.planb.restful
-RESTful 핸들러 클래스들을 위치시킬 패키지입니다.
+RESTful 핸들러 클래스들을 위치시킬 패키지
 #### Sample.java
 퀵스타트의 코딩 스타일을 적용하여 /test URI에 매핑된 클래스입니다.
 
