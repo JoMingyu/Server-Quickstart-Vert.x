@@ -52,7 +52,7 @@ String uri, HttpMethod method 필드를 가진 커스텀 어노테이션. Route 
 #### RESTful.java(Optional)
 리소스에 대한 추가 정보를 명세합니다.
 
-        @RESTful(requestBody = “id : String, password : String”, successCode = 201, failureCode = 204)
+	@RESTful(requestBody = “id : String, password : String”, successCode = 201, failureCode = 204)
 #### Routing.java
 Router 객체와 가변 인자의 패키지 네임을 받아서 Route 어노테이션이 선언된 클래스들을 라우팅합니다. 추가적으로 Function과 RESTful 어노테이션이 선언되어 있다면 엑셀 파일의 새로운 행에 기능을 문서화합니다.
 ### com.planb.support.utilities
@@ -61,7 +61,7 @@ Router 객체와 가변 인자의 패키지 네임을 받아서 Route 어노테�
 MySQL에 연결되어 쿼리를 수행합니다.
 퀵스타트로 서버 개발 시작 시 필드에 정보를 입력해 두어야 합니다.
 
-        private final String URL = "jdbc:mysql://localhost:3306/table_name";
+	private final String URL = "jdbc:mysql://localhost:3306/table_name";
 	private final String USER = "";
 	private final String PASSWORD = "";
 #### Log.java
@@ -76,7 +76,7 @@ Firebase 3rd-party 서버 구현을 돕기 위한 클래스입니다. Registrati
 #### Mail.java
 SMTP를 이용해 메일 전송을 하기 위한 클래스입니다. 메일 전송이 필요하다면 필드에 정보를 입력해 두어야 합니다.
 
-        private static final String SMTP_HOST = “”;
+	private static final String SMTP_HOST = “”;
 	private static final String SENDER_ID = “”;
 	private static final String SENDER_PW = “”;
 	private static final int PORT = 0;
