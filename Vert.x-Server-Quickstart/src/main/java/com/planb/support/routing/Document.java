@@ -22,8 +22,9 @@ public class Document {
 		rowHead.createCell(2).setCellValue("Method");
 		rowHead.createCell(3).setCellValue("URI");
 		rowHead.createCell(4).setCellValue("Request Header");
-		rowHead.createCell(5).setCellValue("Form Attributes");
-		rowHead.createCell(6).setCellValue("Success Code");
+		rowHead.createCell(5).setCellValue("Params");
+		rowHead.createCell(6).setCellValue("Request Body");
+		rowHead.createCell(7).setCellValue("Success Code");
 		rowHead.createCell(8).setCellValue("Response Header");
 		rowHead.createCell(9).setCellValue("Response Body");
 		rowHead.createCell(10).setCellValue("Failure Code");
@@ -37,12 +38,12 @@ public class Document {
 			row.createCell(1).setCellValue(resource.getSummary());
 			row.createCell(2).setCellValue(resource.getMethod());
 			row.createCell(3).setCellValue(resource.getUri());
-			row.createCell(4).setCellValue(resource.getRequestHeaders());
-			row.createCell(5).setCellValue(resource.getParams());
-			row.createCell(6).setCellValue(resource.getResponseBody());
+			row.createCell(4).setCellValue(getKeyValueStr(resource.getRequestHeaders()));
+			row.createCell(5).setCellValue(getKeyValueStr(resource.getParams()));
+			row.createCell(6).setCellValue(getKeyValueStr(resource.getRequestBody()));
 			row.createCell(7).setCellValue(resource.getSuccessCode());
-			row.createCell(8).setCellValue(resource.getResponseHeaders());
-			row.createCell(9).setCellValue(resource.getResponseBody());
+			row.createCell(8).setCellValue(getKeyValueStr(resource.getResponseHeaders()));
+			row.createCell(9).setCellValue(getKeyValueStr(resource.getResponseBody()));
 			row.createCell(10).setCellValue(resource.getFailureCode());
 		}
 		
@@ -52,5 +53,15 @@ public class Document {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private static String getKeyValueStr(String s) {
+		StringBuilder builder = new StringBuilder();
+		String[] requestHeaders = s.split(",");
+		for(String requestHeader : requestHeaders) {
+			builder.append(requestHeader.trim()).append("\n");
+		}
+		
+		return builder.toString().substring(0, builder.toString().length() - 1);
 	}
 }

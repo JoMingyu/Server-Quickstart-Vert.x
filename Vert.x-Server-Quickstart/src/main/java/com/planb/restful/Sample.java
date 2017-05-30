@@ -9,8 +9,8 @@ import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.RoutingContext;
 
 @Route(uri = "/sample", method = HttpMethod.POST)
-@Function(name = "샘플", summary = "기능기능")
-@RESTful(formAttributes = "key : Type, key2 : Type2", successCode = 201, failureCode = 204)
+//@Function(name = "샘플", summary = "기능기능")
+//@RESTful(requestHeaders = "key : Type, key2 : Typ2", requestBody = "key : Type, key2 : Type2", successCode = 201, failureCode = 204)
 public class Sample implements Handler<RoutingContext> {
 	@Override
 	public void handle(RoutingContext ctx) {

@@ -39,7 +39,7 @@ public class Register {
 					Log.R(routeAnno.method() + " " + routeAnno.uri());
 					// 생성자가 public이 아니면 리플렉션으로 접근 불가능(IllegalStateException)
 					
-					resourceList.add(new RESTResource(functionAnno.name(), functionAnno.summary(), routeAnno.method().name(), routeAnno.uri(), restfulAnno.requestHeaders(), restfulAnno.params(), restfulAnno.formAttributes(), restfulAnno.successCode(), restfulAnno.responseHeaders(), restfulAnno.responseBody(), restfulAnno.failureCode()));
+					resourceList.add(new RESTResource(functionAnno.name(), functionAnno.summary(), routeAnno.method().name(), routeAnno.uri(), restfulAnno.requestHeaders(), restfulAnno.params(), restfulAnno.requestBody(), restfulAnno.successCode(), restfulAnno.responseHeaders(), restfulAnno.responseBody(), restfulAnno.failureCode()));
 				} catch (InstantiationException | IllegalAccessException e) {
 					e.printStackTrace();
 				}

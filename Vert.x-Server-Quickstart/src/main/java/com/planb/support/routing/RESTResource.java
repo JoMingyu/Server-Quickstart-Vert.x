@@ -7,20 +7,20 @@ public class RESTResource {
 	private String uri;
 	private String requestHeaders;
 	private String params;
-	private String formAttributes;
+	private String requestBody;
 	private int successCode;
 	private String responseHeaders;
 	private String responseBody;
 	private int failureCode;
 	
-	public RESTResource(String name, String summary, String method, String uri, String requestHeaders, String params, String formAttributes, int successCode, String responseHeaders, String responseBody, int failureCode) {
+	public RESTResource(String name, String summary, String method, String uri, String requestHeaders, String params, String requestBody, int successCode, String responseHeaders, String responseBody, int failureCode) {
 		this.setName(name);
 		this.setSummary(summary);
 		this.setMethod(method);
 		this.setUri(uri);
 		this.setRequestHeaders(requestHeaders);
 		this.setParams(params);
-		this.setFormAttributes(formAttributes);
+		this.setRequestBody(requestBody);
 		this.setSuccessCode(successCode);
 		this.setResponseHeaders(responseHeaders);
 		this.setResponseBody(responseBody);
@@ -75,12 +75,12 @@ public class RESTResource {
 		this.params = params;
 	}
 	
-	public String getFormAttributes() {
-		return formAttributes;
+	public String getRequestBody() {
+		return requestBody;
 	}
 
-	public void setFormAttributes(String formAttributes) {
-		this.formAttributes = formAttributes;
+	public void setRequestBody(String requestBody) {
+		this.requestBody = requestBody;
 	}
 
 	public int getSuccessCode() {

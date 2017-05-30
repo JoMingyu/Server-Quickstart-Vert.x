@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 public @interface RESTful {
 	String requestHeaders() default "X";
 	String params() default "X";
-	String formAttributes() default "X";
+	String requestBody() default "X";
 	int successCode() default 0;
 	String responseHeaders() default "X";
 	String responseBody() default "X";
