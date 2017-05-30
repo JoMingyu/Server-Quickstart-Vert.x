@@ -6,15 +6,13 @@ import java.util.Set;
 
 import org.reflections.Reflections;
 
-import com.planb.support.doc_annotations.Function;
-import com.planb.support.doc_annotations.RESTful;
 import com.planb.support.utilities.Log;
 
 import io.vertx.core.Handler;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 
-public class Register {
+public class Routing {
 	private static List<RESTResource> resourceList = new ArrayList<RESTResource>();
 	
 	@SuppressWarnings("unchecked")
