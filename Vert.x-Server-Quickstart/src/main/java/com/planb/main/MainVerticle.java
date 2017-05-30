@@ -21,6 +21,7 @@ public class MainVerticle extends AbstractVerticle {
 		router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
 		Register.route(router, "com.planb.restful");
 		router.route().handler(StaticHandler.create());
+		
 		Log.I("Server Started");
 		vertx.createHttpServer().requestHandler(router::accept).listen(80);
 	}

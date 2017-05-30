@@ -1,9 +1,13 @@
 package com.planb.support.routing;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.reflections.Reflections;
 
+import com.planb.support.doc_annotations.Function;
+import com.planb.support.doc_annotations.RESTful;
 import com.planb.support.utilities.Log;
 
 import io.vertx.core.Handler;
@@ -11,6 +15,8 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 
 public class Register {
+	private static List<RESTResource> resourceList = new ArrayList<RESTResource>();
+	
 	@SuppressWarnings("unchecked")
 	public static void route(Router router, String... packages) {
 		// 리플렉션으로 탐색할 패키지들을 가변인자로 받아옴
@@ -18,20 +24,28 @@ public class Register {
 			Reflections reflections = new Reflections(p);
 			// 패키지에 대한 리플렉션
 			
-			Set<Class<?>> annotatedClasses = reflections.getTypesAnnotatedWith(Route.class);
+			Set<Class<?>> routeAnnotatedClasses = reflections.getTypesAnnotatedWith(Route.class);
 			// Route 어노테이션이 선언된 클래스들
 			
-			for(Class<?> c: annotatedClasses) {
-				Route annotation = c.getAnnotation(Route.class);
+			for(Class<?> c : routeAnnotatedClasses) {
+				Route routeAnno = c.getAnnotation(Route.class);
+				Function functionAnno = c.getAnnotation(Function.class);
+				RESTful restfulAnno = c.getAnnotation(RESTful.class);
 				
 				try {
-					router.route(annotation.method(), annotation.uri()).handler((Handler<RoutingContext>) c.newInstance());
-					Log.R(annotation.method() + " " + annotation.uri());
+					router.route(routeAnno.method(), routeAnno.uri()).handler((Handler<RoutingContext>) c.newInstance());
+					// Routing
+					
+					Log.R(routeAnno.method() + " " + routeAnno.uri());
 					// 생성자가 public이 아니면 리플렉션으로 접근 불가능(IllegalStateException)
+					
+					resourceList.add(new RESTResource(functionAnno.name(), functionAnno.summary(), routeAnno.method().name(), routeAnno.uri(), restfulAnno.requestHeaders(), restfulAnno.params(), restfulAnno.formAttributes(), restfulAnno.successCode(), restfulAnno.responseHeaders(), restfulAnno.responseBody(), restfulAnno.failureCode()));
 				} catch (InstantiationException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			} // Inner for-each
 		} // Outer for-each
+		
+		new Document(resourceList);
 	}
 }
