@@ -29,8 +29,6 @@ public class Register {
 			
 			for(Class<?> c : routeAnnotatedClasses) {
 				Route routeAnno = c.getAnnotation(Route.class);
-				Function functionAnno = c.getAnnotation(Function.class);
-				RESTful restfulAnno = c.getAnnotation(RESTful.class);
 				
 				try {
 					router.route(routeAnno.method(), routeAnno.uri()).handler((Handler<RoutingContext>) c.newInstance());
@@ -39,7 +37,13 @@ public class Register {
 					Log.R(routeAnno.method() + " " + routeAnno.uri());
 					// 생성자가 public이 아니면 리플렉션으로 접근 불가능(IllegalStateException)
 					
-					resourceList.add(new RESTResource(functionAnno.name(), functionAnno.summary(), routeAnno.method().name(), routeAnno.uri(), restfulAnno.requestHeaders(), restfulAnno.params(), restfulAnno.requestBody(), restfulAnno.successCode(), restfulAnno.responseHeaders(), restfulAnno.responseBody(), restfulAnno.failureCode()));
+					if(c.isAnnotationPresent(Function.class) && c.isAnnotationPresent(RESTful.class)) {
+						Function functionAnno = c.getAnnotation(Function.class);
+						RESTful restfulAnno = c.getAnnotation(RESTful.class);
+						resourceList.add(new RESTResource(functionAnno.name(), functionAnno.summary(), routeAnno.method().name(), routeAnno.uri(), restfulAnno.requestHeaders(), restfulAnno.params(), restfulAnno.requestBody(), restfulAnno.successCode(), restfulAnno.responseHeaders(), restfulAnno.responseBody(), restfulAnno.failureCode()));
+					} else {
+						resourceList.add(new RESTResource("미정", "미정", routeAnno.method().name(), routeAnno.uri(), "미정", "미정", "미정", 0, "미정", "미정", 0));
+					}
 				} catch (InstantiationException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
