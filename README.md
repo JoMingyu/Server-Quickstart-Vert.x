@@ -47,9 +47,11 @@ REST 리소스가 정의되는 Value Object입니다. API 문서화를 위해 �
 String uri, HttpMethod method 필드를 가진 커스텀 어노테이션. Route 어노테이션이 붙어있지 않은 클래스는 라우팅에서 제외됩니다.
 #### Function.java (Optional)
 클래스가 어떤 기능을 하는지를 명세합니다.
-        @Function(name = “로그아웃”, summary = “쿠키 또는 세션 삭제”)
+
+	@Function(name = “로그아웃”, summary = “쿠키 또는 세션 삭제”)
 #### RESTful.java(Optional)
 리소스에 대한 추가 정보를 명세합니다.
+
         @RESTful(requestBody = “id : String, password : String”, successCode = 201, failureCode = 204)
 #### Routing.java
 Router 객체와 가변 인자의 패키지 네임을 받아서 Route 어노테이션이 선언된 클래스들을 라우팅합니다. 추가적으로 Function과 RESTful 어노테이션이 선언되어 있다면 엑셀 파일의 새로운 행에 기능을 문서화합니다.
@@ -58,6 +60,7 @@ Router 객체와 가변 인자의 패키지 네임을 받아서 Route 어노테�
 #### DataBase.java
 MySQL에 연결되어 쿼리를 수행합니다.
 퀵스타트로 서버 개발 시작 시 필드에 정보를 입력해 두어야 합니다.
+
         private final String URL = "jdbc:mysql://localhost:3306/table_name";
 	private final String USER = "";
 	private final String PASSWORD = "";
@@ -72,6 +75,7 @@ logs 디렉토리 하위에 서버의 작동 날짜로 이루어진 파일에 �
 Firebase 3rd-party 서버 구현을 돕기 위한 클래스입니다. Registration ID를 이용한 푸쉬 알림, topic 기반 푸쉬 알림이 구현되어 있습니다. 추후 그룹 기반 푸쉬 알림과 Real-Time DataBase를 사용 가능하도록 구현 예정입니다.
 #### Mail.java
 SMTP를 이용해 메일 전송을 하기 위한 클래스입니다. 메일 전송이 필요하다면 필드에 정보를 입력해 두어야 합니다.
+
         private static final String SMTP_HOST = “”;
 	private static final String SENDER_ID = “”;
 	private static final String SENDER_PW = “”;
