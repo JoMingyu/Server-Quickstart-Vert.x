@@ -1,6 +1,6 @@
 package com.planb.main;
 
-import com.planb.support.routing.Routing;
+import com.planb.support.routing.Register;
 import com.planb.support.utilities.Log;
 
 import io.vertx.core.AbstractVerticle;
@@ -9,6 +9,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CookieHandler;
 import io.vertx.ext.web.handler.SessionHandler;
+import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 
 public class MainVerticle extends AbstractVerticle {
@@ -18,7 +19,8 @@ public class MainVerticle extends AbstractVerticle {
 		router.route().handler(BodyHandler.create().setUploadsDirectory("files"));
 		router.route().handler(CookieHandler.create());
 		router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
-		Routing.route(router, "com.planb.restful");
+		Register.route(router, "com.planb.restful");
+		router.route().handler(StaticHandler.create());
 		Log.I("Server Started");
 		vertx.createHttpServer().requestHandler(router::accept).listen(80);
 	}

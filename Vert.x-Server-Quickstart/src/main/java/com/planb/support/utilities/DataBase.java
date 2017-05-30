@@ -2,59 +2,55 @@ package com.planb.support.utilities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DataBase {
-	private static DataBase database = new DataBase();
-	private Connection connection;
-	private Statement statement;
+	private static Connection connection;
 	
-	private final String URL = "jdbc:mysql://localhost:3306/";
-	private final String TABLE_NAME = "";
-	private final String USER = "";
-	private final String PASSWORD = "";
+	private static final String URL = "jdbc:mysql://localhost:3306/table";
+	private static final String USER = "";
+	private static final String PASSWORD = "";
 	
-	private DataBase() {
-		// 2개 이상의 오브젝트가 동시에 DB 액세스 시 문제 발생.
+	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection(URL + TABLE_NAME, USER, PASSWORD);
-			statement = connection.createStatement();
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static DataBase getInstance() {
-		return database;
-	}
-	
-	private static String buildQuery(Object... args) {
-		StringBuilder query = new StringBuilder();
+	private synchronized static PreparedStatement buildQuery(String sql, Object... args) {
+		Log.Q(sql);
 		
-		for(Object o: args) {
-			query.append(o);
+		PreparedStatement statement = null;
+		try {
+			statement = connection.prepareStatement(sql);
+			int placeholderCount = 1;
+			for(Object o: args) {
+				statement.setObject(placeholderCount++, o);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
-		return query.toString();
+		return statement;
 	}
 	
-	public ResultSet executeQuery(Object... args) {
-		String query = buildQuery(args);
+	public synchronized static ResultSet executeQuery(String sql, Object... args) {
 		try {
-			return statement.executeQuery(query);
+			return buildQuery(sql, args).executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 	
-	public int executeUpdate(Object... args) {
-		String query = buildQuery(args);
+	public synchronized static int executeUpdate(String sql, Object... args) {
 		try {
-			return statement.executeUpdate(query);
+			return buildQuery(sql, args).executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
 			return 0;
