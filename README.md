@@ -19,17 +19,17 @@ Quickstart의 구성을 위해 사용된 라이브러리는 Maven으로 의존�
 	> support.routing
 	> support.utilities
 	> additional
-### com.planb.main
+### > com.planb.main
 #### Main.java
 main 메소드가 위치하며, Vert.x 객체와 Verticle 배치 구문이 존재합니다.
 #### MainVerticle.java
 main 메소드에서 분기, Router 객체에 Body, Cookie, Session, Static 핸들러, com.planb.restful 패키지 하위의 RESTful 핸들러 클래스들을 배치한 이후 80번 포트로 서버를 시작시킵니다.
-### com.planb.restful
+### > com.planb.restful
 RESTful 핸들러 클래스들을 위치시킬 패키지입니다.
 #### Sample.java
 퀵스타트의 코딩 스타일을 적용하여 /test URI에 매핑된 클래스입니다.
 
-### com.planb.support.crypto
+### > com.planb.support.crypto
 암호화 클래스들이 모인 패키지
 #### AES256.java
 AES256 암호화 클래스. 서버에 암호화가 필요하다면 key 필드에 암호화 키를 삽입하면 됩니다.
@@ -37,7 +37,7 @@ encrypt(String str)와 decrypt(String str) 메소드를 통해 암/복호화를 
 #### SHA256.java
 SHA256 암호화 클래스. encrypt(String str) 메소드로 단방향 암호화를 할 수 있습니다.
 
-### com.planb.support.routing
+### > com.planb.support.routing
 커스텀 어노테이션들이 선언되어 있으며, 리플렉션을 통해 라우팅과 문서화를 진행하는 패키지
 #### Document.java
 RESTResource 타입의 List 객체를 생성자로 받아 엑셀 파일을 제작하는 클래스입니다.
@@ -55,7 +55,7 @@ String uri, HttpMethod method 필드를 가진 커스텀 어노테이션. Route 
 	@RESTful(requestBody = “id : String, password : String”, successCode = 201, failureCode = 204)
 #### Routing.java
 Router 객체와 가변 인자의 패키지 네임을 받아서 Route 어노테이션이 선언된 클래스들을 라우팅합니다. 추가적으로 Function과 RESTful 어노테이션이 선언되어 있다면 엑셀 파일의 새로운 행에 기능을 문서화합니다.
-### com.planb.support.utilities
+### > com.planb.support.utilities
 유틸리티성 클래스들이 모인 패키지
 #### DataBase.java
 MySQL에 연결되어 쿼리를 수행합니다.
@@ -69,7 +69,7 @@ logs 디렉토리 하위에 서버의 작동 날짜로 이루어진 파일에 �
 #### SessionUtil.java
 세션과 쿠키를 다루기 위한 클래스입니다.
 
-### com.planb.additional
+### > com.planb.additional
 서버 구성 시 추가적으로 사용할만한 클래스들이 모인 패키지
 #### Firebase.java
 Firebase 3rd-party 서버 구현을 돕기 위한 클래스입니다. Registration ID를 이용한 푸쉬 알림, topic 기반 푸쉬 알림이 구현되어 있습니다. 추후 그룹 기반 푸쉬 알림과 Real-Time DataBase를 사용 가능하도록 구현 예정입니다.
