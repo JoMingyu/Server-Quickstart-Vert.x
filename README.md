@@ -17,7 +17,7 @@ Vert.x Web 서버를 만들 때 쓸 퀵스타트
 ### REST API 문서화 어노테이션 : @Function, @RESTful
 Route 어노테이션이 선언된 클래스에 Function과 RESTful 어노테이션을 선언해두면 서버가 실행될 때마다 서버의 API 문서를 엑셀 파일로 자동 생성합니다.
 
-	@Function(name = "인덱스", summary = "인덱스 라우터")
+	@Function(functionCategory = "인덱스", summary = "인덱스 라우터")
 	@RESTful(responseBody = "index.html", successCode = 200)
 	@Route(uri = "/index", method = HttpMethod.GET)
 	public class Index implements Handler<RoutingContext> {
