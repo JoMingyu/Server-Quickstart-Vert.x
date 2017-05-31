@@ -26,6 +26,7 @@ Route 어노테이션이 선언된 클래스에 Function과 RESTful 어노테이
 			...
 		}
 	}
+아래는 Quickstart를 실제로 적용하여 REST API 서버를 구축한 이후 자동으로 문서화된 엑셀 파일입니다.
 ![Doc](REST.png)
 ### 구현되어 있는 데이터베이스와 암호화, Firebase 등의 유틸리티 클래스
 utilities 패키지에 구현되어 있는 DataBase, Log, SessionUtil 클래스를 통해 쿼리문 조작, 로깅, 세션과 쿠키를 쉽게 다룰 수 있습니다.
