@@ -14,11 +14,11 @@ Vert.x Web 서버를 만들 때 쓸 퀵스타트
 			ctx.response().close();
 		}
 	}
-### REST API 문서화 어노테이션 : @Function, @RESTful
-Route 어노테이션이 선언된 클래스에 Function과 RESTful 어노테이션을 선언해두면 서버가 실행될 때마다 서버의 API 문서를 엑셀 파일로 자동 생성합니다.
+### REST API 문서화 어노테이션 : @API, @REST
+Route 어노테이션이 선언된 클래스에 API와 REST 어노테이션을 선언해두면 서버가 실행될 때마다 서버의 API 문서를 엑셀 파일로 자동 생성합니다.
 
-	@Function(functionCategory = "인덱스", summary = "인덱스 라우터")
-	@RESTful(responseBody = "index.html", successCode = 200)
+	@API(functionCategory = "인덱스", summary = "인덱스 라우터")
+	@REST(responseBody = "index.html", successCode = 200)
 	@Route(uri = "/index", method = HttpMethod.GET)
 	public class Index implements Handler<RoutingContext> {
 		@Override
@@ -67,16 +67,16 @@ RESTResource 타입의 List 객체를 생성자로 받아 엑셀 파일을 제�
 REST 리소스가 정의되는 Value Object입니다. API 문서화를 위해 사용됩니다.
 #### Route.java
 String uri, HttpMethod method 필드를 가진 커스텀 어노테이션. Route 어노테이션이 붙어있지 않은 클래스는 라우팅에서 제외됩니다.
-#### Function.java (Optional)
-클래스가 어떤 기능을 하는지를 명세합니다.
+#### API.java (Optional)
+클래스가 API로서 어떤 기능을 가지는지를 명시합니다.
 
-	@Function(name = “로그아웃”, summary = “쿠키 또는 세션 삭제”)
-#### RESTful.java(Optional)
-리소스에 대한 추가 정보를 명세합니다.
+	@API(name = “로그아웃”, summary = “쿠키 또는 세션 삭제”)
+#### REST.java(Optional)
+리소스에 대한 추가 정보를 명시합니다.
 
-	@RESTful(requestBody = “id : String, password : String”, successCode = 201, failureCode = 204)
+	@REST(requestBody = “id : String, password : String”, successCode = 201, failureCode = 204)
 #### Routing.java
-Router 객체와 가변 인자의 패키지 네임을 받아서 Route 어노테이션이 선언된 클래스들을 라우팅합니다. 추가적으로 Function과 RESTful 어노테이션이 선언되어 있다면 엑셀 파일의 새로운 행에 기능을 문서화합니다.
+Router 객체와 가변 인자의 패키지 네임을 받아서 Route 어노테이션이 선언된 클래스들을 라우팅합니다. 추가적으로 API와 REST 어노테이션이 선언되어 있다면 엑셀 파일의 새로운 행에 기능을 문서화합니다.
 ### > com.planb.support.utilities
 유틸리티성 클래스들이 모인 패키지
 #### DataBase.java
