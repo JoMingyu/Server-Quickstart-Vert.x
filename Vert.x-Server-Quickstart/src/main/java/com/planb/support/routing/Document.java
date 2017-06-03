@@ -46,7 +46,7 @@ public class Document {
 			row.createCell(8).setCellValue(getKeyValueStr(resource.getResponseHeaders()));
 			row.createCell(9).setCellValue(getKeyValueStr(resource.getResponseBody()));
 			row.createCell(10).setCellValue(resource.getFailureCode());
-			row.createCell(10).setCellValue(resource.getEtc());
+			row.createCell(11).setCellValue(resource.getEtc());
 		}
 		
 		try {
