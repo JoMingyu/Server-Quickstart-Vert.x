@@ -4,6 +4,7 @@ Vert.x Web 서버를 만들 때 쓸 퀵스타트
 ## 장점
 ### 간단한 어노테이션
 별다른 조작 없이 바로 RESTful API 서버의 기능 구현에 집중하기 위해서 Route 어노테이션을 통해 구현하고자 하는 기능의 HTTP 메소드와 URI를 메타데이터로서 표현할 수 있습니다. 서버가 실행되면 Route 어노테이션이 선언된 클래스들을 자동으로 라우팅합니다.
+##### com.planb.restful.Sample 클래스 참고
 
 	@Route(uri = "/index", method = HttpMethod.GET)
 	public class Index implements Handler<RoutingContext> {
