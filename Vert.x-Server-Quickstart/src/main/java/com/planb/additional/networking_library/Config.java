@@ -1,4 +1,4 @@
-package com.planb.additional;
+package com.planb.additional.networking_library;
 
 public class Config {
 	private String targetAddress;

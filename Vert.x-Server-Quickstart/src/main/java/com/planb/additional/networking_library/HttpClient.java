@@ -1,4 +1,4 @@
-package com.planb.additional;
+package com.planb.additional.networking_library;
 
 import java.io.IOException;
 import java.io.OutputStream;

@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
+import com.planb.additional.networking_library.HttpClient;
+
 public class Firebase {
 	private static final String SERVER_KEY = "AAAAhndBTOE:APA91bENhBImmt3bwwPvNYMcCanS5bl55zQ9W3-rpVJiCwPhSssuUyBWcbqL4FstfU8hhlMSmXS4qixQtaClDcT_0RJ5dh2q2pAVjM0pk8P8SyRPi0gC3xlRZbFXmpRE_FvaP4LjTizD";
 
