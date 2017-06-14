@@ -82,12 +82,12 @@ Router 객체와 가변 인자의 패키지 네임을 받아서 Route 어노테�
 유틸리티성 클래스들이 모인 패키지
 #### DataBase.java
 MySQL에 연결되어 쿼리를 수행합니다.
-퀵스타트로 서버 개발 시작 시 필드에 정보를 입력해 두어야 합니다.
+퀵스타트로 서버 개발 시작 시 데이터베이스가 필요하다면 필드에 정보를 입력해 두어야 합니다.
 
 	private final String URL = "jdbc:mysql://localhost:3306/table_name";
 	private final String USER = "";
 	private final String PASSWORD = "";
-MySQL은 기본적으로 8시간동안 요청이 없으면 커넥션을 해지합니다. 이를 해결하기 위해 URL에 autoReconnection=true를 명시해 두었습니다.
+MySQL은 기본적으로 8시간동안 요청이 없으면 커넥션을 해지합니다. 이를 해결하기 위해 static 블록에 6시간마다 'SELECT 1' 쿼리문을 수행하는 스레드를 등록해 두었습니다. 타임아웃에 관한 문제를 따로 해결했다면, 자원 낭비를 막기 위해 이 스레드를 지워주세요.
 #### Log.java
 logs 디렉토리 하위에 서버의 작동 날짜로 이루어진 파일에 로그를 남깁니다.
 #### SessionUtil.java
