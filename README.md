@@ -104,7 +104,7 @@ SMTP를 이용해 메일 전송을 하기 위한 클래스입니다. SMTP를 통
 	private static final String SENDER_ID = “”;
 	private static final String SENDER_PW = “”;
 	private static final int PORT = 0;
-#### > com.planb.additional.networking_library
+### > com.planb.additional.networking_library
 ##### Simple-Networking-Library
 <https://github.com/JoMingyu/Simple-Networking-Library>
 
