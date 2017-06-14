@@ -87,6 +87,7 @@ MySQL에 연결되어 쿼리를 수행합니다.
 	private final String URL = "jdbc:mysql://localhost:3306/table_name";
 	private final String USER = "";
 	private final String PASSWORD = "";
+MySQL은 기본적으로 8시간동안 요청이 없으면 커넥션을 해지합니다. 이를 해결하기 위해 URL에 autoReconnection=true를 명시해 두었습니다.
 #### Log.java
 logs 디렉토리 하위에 서버의 작동 날짜로 이루어진 파일에 로그를 남깁니다.
 #### SessionUtil.java
@@ -97,12 +98,13 @@ logs 디렉토리 하위에 서버의 작동 날짜로 이루어진 파일에 �
 #### Firebase.java
 Firebase 3rd-party 서버 구현을 돕기 위한 클래스입니다. Registration ID를 이용한 푸쉬 알림, topic 기반 푸쉬 알림이 구현되어 있습니다. 추후 그룹 기반 푸쉬 알림과 Real-Time DataBase를 사용 가능하도록 구현 예정입니다.
 #### Mail.java
-SMTP를 이용해 메일 전송을 하기 위한 클래스입니다. 메일 전송이 필요하다면 필드에 정보를 입력해 두어야 합니다.
+SMTP를 이용해 메일 전송을 하기 위한 클래스입니다. SMTP를 통한 메일 전송이 필요하다면 필드에 정보를 입력해 두어야 합니다.
 
 	private static final String SMTP_HOST = “”;
 	private static final String SENDER_ID = “”;
 	private static final String SENDER_PW = “”;
 	private static final int PORT = 0;
-#### Config.java & HttpClient.java & NetworkingHelper.java & Response.java
+#### > com.planb.additional.networking_library
 ##### Simple-Networking-Library
 <https://github.com/JoMingyu/Simple-Networking-Library>
+
