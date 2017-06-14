@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class MySQL {
 	private static Connection connection;
 	
-	private static final String URL = "jdbc:mysql://localhost:3306/table_name?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnection=true";
+	private static final String URL = "jdbc:mysql://localhost:3306/table_name?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	private static final String USER = "";
 	private static final String PASSWORD = "";
 	
@@ -20,6 +20,17 @@ public class MySQL {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		
+		new Thread(() -> {
+			while(true) {
+				try {
+					Thread.sleep(1000 * 3600 * 6);
+					MySQL.executeQuery("SELECT 1");
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 	
 	private synchronized static PreparedStatement buildQuery(String sql, Object... args) {
