@@ -1,5 +1,6 @@
 package com.planb.main;
 
+import com.planb.additional.CORSHandler;
 import com.planb.support.routing.Routing;
 import com.planb.support.utilities.Log;
 
@@ -19,6 +20,7 @@ public class MainVerticle extends AbstractVerticle {
 		router.route().handler(BodyHandler.create().setUploadsDirectory("files"));
 		router.route().handler(CookieHandler.create());
 		router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
+		router.route().handler(CORSHandler.create());
 		Routing.route(router, "com.planb.restful");
 		router.route().handler(StaticHandler.create());
 		
