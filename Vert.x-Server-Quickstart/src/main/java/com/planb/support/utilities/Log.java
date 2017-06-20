@@ -14,6 +14,7 @@ public class Log {
 		File dir = new File("logs");
 		if(!dir.exists()) {
 			dir.mkdir();
+			// mkdir method contains exist check
 		}
 		
 		cal = Calendar.getInstance();
