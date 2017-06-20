@@ -9,14 +9,21 @@ import java.sql.SQLException;
 public class MySQL {
 	private static Connection connection;
 	
-	private static final String URL = "jdbc:mysql://localhost:3306/table_name?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	private static final String USER = "";
-	private static final String PASSWORD = "";
+	private static String url;
+	private static String user = Config.getValue("dbUserName");
+	private static String password = Config.getValue("dbPassword");
 	
 	static {
+		StringBuilder urlBuilder = new StringBuilder();
+		urlBuilder.append("jdbc:mysql://localhost:");
+		urlBuilder.append(Config.getValue("dbPort")).append("/");
+		urlBuilder.append(Config.getValue("dbTableName")).append("?");
+		urlBuilder.append("useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+		
+		url = urlBuilder.toString();
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			connection = DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}

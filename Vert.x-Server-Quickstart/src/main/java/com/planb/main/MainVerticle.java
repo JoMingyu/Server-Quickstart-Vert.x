@@ -1,7 +1,8 @@
 package com.planb.main;
 
-import com.planb.additional.CORSHandler;
 import com.planb.support.routing.Routing;
+import com.planb.support.utilities.CORSHandler;
+import com.planb.support.utilities.Config;
 import com.planb.support.utilities.Log;
 
 import io.vertx.core.AbstractVerticle;
@@ -17,6 +18,8 @@ public class MainVerticle extends AbstractVerticle {
 	@Override
 	public void start() throws Exception {
 		Router router = Router.router(vertx);
+		int serverPort = Integer.parseInt(Config.getValue("serverPort"));
+		
 		router.route().handler(BodyHandler.create().setUploadsDirectory("files"));
 		router.route().handler(CookieHandler.create());
 		router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
@@ -25,8 +28,8 @@ public class MainVerticle extends AbstractVerticle {
 		router.route().handler(CORSHandler.create());
 		router.route().handler(StaticHandler.create());
 		
-		Log.I("Server Started");
-		vertx.createHttpServer().requestHandler(router::accept).listen(80);
+		Log.I("Server Started At : " + serverPort);
+		vertx.createHttpServer().requestHandler(router::accept).listen(serverPort);
 	}
 	
 	@Override

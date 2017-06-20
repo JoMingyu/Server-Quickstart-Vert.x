@@ -1,4 +1,4 @@
-package com.planb.additional;
+package com.planb.support.utilities;
 
 import com.google.common.net.HttpHeaders;
 
