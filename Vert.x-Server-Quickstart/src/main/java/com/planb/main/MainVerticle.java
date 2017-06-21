@@ -18,7 +18,7 @@ public class MainVerticle extends AbstractVerticle {
 	@Override
 	public void start() throws Exception {
 		Router router = Router.router(vertx);
-		int serverPort = Integer.parseInt(Config.getValue("serverPort"));
+		int serverPort = Config.getIntValue("serverPort");
 		
 		router.route().handler(BodyHandler.create().setUploadsDirectory("files"));
 		router.route().handler(CookieHandler.create());

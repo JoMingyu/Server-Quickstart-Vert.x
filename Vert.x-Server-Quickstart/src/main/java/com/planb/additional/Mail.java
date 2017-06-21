@@ -11,11 +11,13 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.planb.support.utilities.Config;
+
 public class Mail {
-	private static final String SMTP_HOST = "";
-	private static final String SENDER_ID = "";
-	private static final String SENDER_PW = "";
-	private static final int PORT = 0;
+	private static final String SMTP_HOST = Config.getValue("smtpHost");
+	private static final String SENDER_ID = Config.getValue("smtpId");
+	private static final String SENDER_PW = Config.getValue("smtpPw");
+	private static final int PORT = Config.getIntValue("smtpPort");
 	
 	private static Properties props;
 	private static Session session;

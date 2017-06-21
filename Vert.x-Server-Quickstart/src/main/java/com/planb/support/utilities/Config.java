@@ -6,15 +6,21 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Config {
-	public static String getValue(String attribute) {
+	private static Properties props = new Properties();
+	
+	static {
 		try {
-        	Properties props = new Properties();
 			props.load(new FileReader(new File("config.properties")));
-			
-			return props.get(attribute).toString();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return null;
 		}
+	}
+	
+	public static String getValue(String attribute) {
+		return props.get(attribute).toString();
+	}
+	
+	public static int getIntValue(String attribute) {
+		return Integer.parseInt(props.get(attribute).toString());
 	}
 }
