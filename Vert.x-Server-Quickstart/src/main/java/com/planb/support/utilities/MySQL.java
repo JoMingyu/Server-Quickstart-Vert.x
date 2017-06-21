@@ -41,7 +41,7 @@ public class MySQL {
 	}
 	
 	private synchronized static PreparedStatement buildQuery(String sql, Object... args) {
-		Log.Q(sql);
+		Log.query(sql);
 		
 		PreparedStatement statement = null;
 		try {
