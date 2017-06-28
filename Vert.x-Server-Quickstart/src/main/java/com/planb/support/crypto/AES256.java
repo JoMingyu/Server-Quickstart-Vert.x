@@ -20,15 +20,16 @@ import com.planb.support.utilities.Config;
 public class AES256 {
     private static String ips;
     private static Key keySpec;
-    private static String key = Config.getValue("aesKey") ;
-
+    private static String key = Config.getValue("aesKey");
+    
     static {
-        try {
+    	try {
+    		System.out.println(key);
             byte[] keyBytes = new byte[16];
             byte[] b = key.getBytes("UTF-8");
             System.arraycopy(b, 0, keyBytes, 0, keyBytes.length);
             SecretKeySpec keySpec = new SecretKeySpec(keyBytes, "AES");
-            ips = key.substring(0, 16);
+            AES256.ips = key.substring(0, 16);
             AES256.keySpec = keySpec;
         } catch (Exception e) {
             e.printStackTrace();

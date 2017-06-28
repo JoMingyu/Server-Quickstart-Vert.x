@@ -67,3 +67,5 @@ $RECYCLE.BIN/
 .classpath
 .gitignore
 .project
+*.log
+*.xlsx

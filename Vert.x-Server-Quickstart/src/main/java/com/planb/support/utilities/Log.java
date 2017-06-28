@@ -14,7 +14,6 @@ public class Log {
 		File dir = new File("logs");
 		if(!dir.exists()) {
 			dir.mkdir();
-			// mkdir method contains exist check
 		}
 		
 		cal = Calendar.getInstance();
@@ -76,6 +75,8 @@ public class Log {
 	}
 	
 	private static void writeToFile(String logMsg) {
+		// This method is called every logging
+		
 		check();
 		
 		try {
