@@ -6,7 +6,7 @@ public class RESTResource implements Comparable<RESTResource> {
 	private String method;
 	private String uri;
 	private String requestHeaders;
-	private String params;
+	private String requestParams;
 	private String requestBody;
 	private int successCode;
 	private String responseHeaders;
@@ -19,13 +19,13 @@ public class RESTResource implements Comparable<RESTResource> {
 		return o.functionCategory.compareTo(this.functionCategory);
 	}
 	
-	public RESTResource(String functionCategory, String summary, String method, String uri, String requestHeaders, String params, String requestBody, int successCode, String responseHeaders, String responseBody, int failureCode, String etc) {
+	public RESTResource(String functionCategory, String summary, String method, String uri, String requestHeaders, String requestParams, String requestBody, int successCode, String responseHeaders, String responseBody, int failureCode, String etc) {
 		this.setFunctionCategory(functionCategory);
 		this.setSummary(summary);
 		this.setMethod(method);
 		this.setUri(uri);
 		this.setRequestHeaders(requestHeaders);
-		this.setParams(params);
+		this.setRequestParams(requestParams);
 		this.setRequestBody(requestBody);
 		this.setSuccessCode(successCode);
 		this.setResponseHeaders(responseHeaders);
@@ -74,12 +74,12 @@ public class RESTResource implements Comparable<RESTResource> {
 		this.requestHeaders = requestHeaders;
 	}
 
-	public String getParams() {
-		return params;
+	public String getRequestParams() {
+		return requestParams;
 	}
 
-	public void setParams(String params) {
-		this.params = params;
+	public void setRequestParams(String requestParams) {
+		this.requestParams = requestParams;
 	}
 	
 	public String getRequestBody() {

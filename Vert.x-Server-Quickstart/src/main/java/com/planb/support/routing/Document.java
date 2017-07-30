@@ -42,7 +42,7 @@ public class Document {
 			row.createCell(2).setCellValue(resource.getMethod());
 			row.createCell(3).setCellValue(resource.getUri());
 			row.createCell(4).setCellValue(getKeyValueStr(resource.getRequestHeaders()));
-			row.createCell(5).setCellValue(getKeyValueStr(resource.getParams()));
+			row.createCell(5).setCellValue(getKeyValueStr(resource.getRequestParams()));
 			row.createCell(6).setCellValue(getKeyValueStr(resource.getRequestBody()));
 			row.createCell(7).setCellValue(resource.getSuccessCode());
 			row.createCell(8).setCellValue(getKeyValueStr(resource.getResponseHeaders()));
