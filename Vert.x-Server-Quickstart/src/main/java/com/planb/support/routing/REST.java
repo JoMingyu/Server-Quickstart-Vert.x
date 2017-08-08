@@ -10,11 +10,11 @@ import java.lang.annotation.Target;
 @Target(TYPE)
 public @interface REST {
 	String requestHeaders() default "X";
-	String params() default "X";
+	String requestParams() default "X";
 	String requestBody() default "X";
-	int successCode() default 0;
 	String responseHeaders() default "X";
 	String responseBody() default "X";
+	int successCode() default 0;
 	int failureCode() default 0;
 	String etc() default "X";
 }
